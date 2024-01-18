@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from "react";
-import Navigation from "./src/navigation/Navigation";
-import Home from "./src/view/Home";
+import React from 'react';
+import Navigation from './src/navigation/Navigation';
 
-export default function App() {
+const App = () => (
+    <Navigation />
+);
 
-  return (
-      <Home />
-  );
-}
+export default App;

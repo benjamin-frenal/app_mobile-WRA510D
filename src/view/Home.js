@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, Text, View, Button } from "react-native";
+import { View, StyleSheet, FlatList, Text, Button } from "react-native";
 import axios from "axios";
 
 export default function Home() {
