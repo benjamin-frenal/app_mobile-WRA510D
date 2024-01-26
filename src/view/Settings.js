@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import {globalStyles} from "../../assets/styles/styles";
 
 const Settings = () => {
     return (
-        <View>
-            <Text>Settings</Text>
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.headerText}>Settings</Text>
         </View>
     );
 };

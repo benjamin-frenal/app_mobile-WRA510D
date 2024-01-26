@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import {globalStyles} from '../../assets/styles/styles.js';
 
 const MyTeam = () => {
     return (
-        <View>
-            <Text>MyTeam</Text>
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.headerText}>MyTeam</Text>
         </View>
     );
 };
