@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import {globalStyles} from "../../assets/styles/styles";
 
 const Random = () => {
     return (
-        <View>
-            <Text>Random</Text>
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.headerText}>Random</Text>
         </View>
     );
 };

@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import {globalStyles} from '../../assets/styles/styles.js';
 
 const Search = () => {
     return (
-        <View>
-            <Text>Search</Text>
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.headerText}>Search</Text>
         </View>
     );
 };

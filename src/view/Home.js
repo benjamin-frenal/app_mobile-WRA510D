@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, Text, Button } from "react-native";
 import axios from "axios";
+import {globalStyles} from "../../assets/styles/styles";
 
 export default function Home() {
     const [listPokemon, setListPokemon] = useState([]);
@@ -30,8 +31,8 @@ export default function Home() {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.headerText}>Pokédex</Text>
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.headerText}>Pokédex</Text>
             <FlatList
                 style={styles.list}
                 data={listPokemon}
@@ -94,19 +95,6 @@ export default function Home() {
 };
 
 const styles = StyleSheet.create({
-
-    container: {
-        backgroundColor: '#000000',
-        height: '100%',
-        paddingVertical: 60,
-    },
-    headerText: {
-        color: '#fff',
-        fontSize: 32,
-        fontWeight: 'bold',
-        marginBottom: 20,
-        paddingHorizontal: 10,
-    },
     list: {
         paddingHorizontal: 10,
     },
