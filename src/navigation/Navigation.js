@@ -19,7 +19,6 @@ const Navigation = () => (
                     backgroundColor: '#161618',
                     borderTopWidth: 0,
                 },
-                //tabBarLabel: '',
             })}
         >
             <Tab.Screen name="Home" component={Home} />
