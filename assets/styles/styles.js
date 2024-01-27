@@ -4,7 +4,7 @@ export const globalStyles = StyleSheet.create({
     container: {
         backgroundColor: '#000000',
         height: '100%',
-        paddingVertical: 60,
+        paddingTop: 60,
     },
     headerText: {
         color: '#fff',

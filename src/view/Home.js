@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text, Button } from "react-native";
+import { View, StyleSheet, FlatList, Text, Image, Button } from "react-native";
 import axios from "axios";
 import {globalStyles} from "../../assets/styles/styles";
 
@@ -32,7 +32,23 @@ export default function Home() {
 
     return (
         <View style={globalStyles.container}>
-            <Text style={globalStyles.headerText}>Pokédex</Text>
+            <Text style={globalStyles.headerText}>Explorez le monde des Pokémon !</Text>
+            <View style={styles.rectangleContainer}>
+                <View style={styles.rectangle}>
+                    <Text style={styles.rectangleText}>Ma Team</Text>
+                    <Image
+                        source={require('../../assets/images/users.png')}
+                        style={styles.backgroundImage}
+                    />
+                </View>
+                <View style={[styles.rectangle, styles.tworectangle]}>
+                    <Text style={styles.rectangleText}>Aléatoire</Text>
+                    <Image
+                        source={require('../../assets/images/pokefond.png')}
+                        style={styles.backgroundImage}
+                    />
+                </View>
+            </View>
             <FlatList
                 style={styles.list}
                 data={listPokemon}
@@ -95,6 +111,40 @@ export default function Home() {
 };
 
 const styles = StyleSheet.create({
+    rectangleContainer: {
+        flexDirection: 'row',
+        columnGap: 10,
+        marginBottom: 10,
+        marginHorizontal: 10,
+    },
+    rectangle: {
+        position: 'relative',
+        width: '50%',
+        flex: 1,
+        height: 100,
+        backgroundColor: '#F7786A',
+        borderRadius: 10,
+    },
+    rectangleText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: '600',
+        marginTop: 60,
+        marginLeft: 20,
+    },
+    tworectangle: {
+        backgroundColor: '#5CBE62',
+    },
+    backgroundImage: {
+        top: "auto",
+        right: -10,
+        bottom: 10,
+        position: 'absolute',
+        flex: 1,
+        resizeMode: 'contain',
+        width: '50%',
+        height: '50%',
+    },
     list: {
         paddingHorizontal: 10,
     },
