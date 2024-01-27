@@ -15,7 +15,7 @@ const Navigation = () => (
     <NavigationContainer>
         <Tab.Navigator
             tabBarOptions={{
-                activeTintColor: 'red',
+                activeTintColor: '#F7786A',
                 inactiveTintColor: 'gray'
             }}
             screenOptions={({ route }) => ({
