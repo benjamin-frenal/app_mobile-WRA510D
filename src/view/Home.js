@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text, Image} from "react-native";
+import { View, StyleSheet, FlatList, Text, Image } from "react-native";
 import axios from "axios";
 import { globalStyles } from "../../assets/styles/styles";
 import PokemonSearch from "../components/SearchComponent";
@@ -32,22 +32,28 @@ export default function Home() {
     };
 
     const determineBackgroundColor = (types) => {
-        switch (types[0].type.name) {
-            case 'grass':
-                return styles.grassBackground;
-            case 'poison':
-                return styles.poisonBackground;
-            case 'fire':
-                return styles.fireBackground;
-            case 'flying':
-                return styles.flyingBackground;
-            case 'water':
-                return styles.waterBackground;
-            case 'electric':
-                return styles.electricBackground;
-            default:
-                return styles.defaultBackground;
-        }
+        const backgroundColors = {
+            grass: styles.grassBackground,
+            poison: styles.poisonBackground,
+            fire: styles.fireBackground,
+            flying: styles.flyingBackground,
+            fighting: styles.fightingBackground,
+            water: styles.waterBackground,
+            electric: styles.electricBackground,
+            psychic: styles.psychicBackground,
+            dragon: styles.dragonBackground,
+            dark: styles.darkBackground,
+            fairy: styles.fairyBackground,
+            bug: styles.bugBackground,
+            rock: styles.rockBackground,
+            steel: styles.steelBackground,
+            ghost: styles.ghostBackground,
+            ice: styles.iceBackground,
+            ground: styles.groundBackground,
+            normal: styles.normalBackground,
+            default: styles.defaultBackground
+        };
+        return backgroundColors[types[0]?.type?.name] || styles.defaultBackground;
     };
 
     return (
@@ -76,45 +82,11 @@ export default function Home() {
                 horizontal={true}
                 keyExtractor={(item) => item.name}
                 renderItem={({ item }) => (
-                    <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
-                        <Text style={styles.itemText}>{item.name}</Text>
-                        <Text style={styles.itemCategorie}>Poids: {item.weight}</Text>
-                        <Text style={styles.itemCategorie}>Taille: {item.height}</Text>
-                        <Text style={styles.itemTypes}>
-                            Types: </Text><Text>{item.types.map((type, index) => {
-                        let typeStyle;
-                        switch (type.type.name) {
-                            case 'grass':
-                                typeStyle = styles.grassType;
-                                break;
-                            case 'poison':
-                                typeStyle = styles.poisonType;
-                                break;
-                            case 'fire':
-                                typeStyle = styles.fireType;
-                                break;
-                            case 'flying':
-                                typeStyle = styles.flyingType;
-                                break;
-                            case 'water':
-                                typeStyle = styles.waterType;
-                                break;
-                            case 'electric':
-                                typeStyle = styles.electricType;
-                                break;
-                            default:
-                                typeStyle = styles.defaultType;
-                        }
-                        const isLastType = index === item.types.length - 1;
-                        const comma = isLastType ? '' : ', ';
-                        return (
-                            <React.Fragment key={type.type.name}>
-                                <Text style={typeStyle}>{type.type.name}</Text>
-                                {comma}
-                            </React.Fragment>
-                        );
-                    })}
-                    </Text>
+                    <View style={styles.listItemContainer}>
+                        <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
+                            <Text style={styles.itemText}>{item.name}</Text>
+                            <Image source={{ uri: item.sprites.front_default }} style={styles.pokemonImage} />
+                        </View>
                     </View>
                 )}
                 numColumns={1}
@@ -132,7 +104,7 @@ export default function Home() {
 const styles = StyleSheet.create({
     rectangleContainer: {
         flexDirection: 'row',
-        columnGap: 10,
+        gap: 10,
         marginBottom: 10,
         marginHorizontal: 10,
     },
@@ -155,80 +127,110 @@ const styles = StyleSheet.create({
         backgroundColor: '#5CBE62',
     },
     backgroundImage: {
+        position: 'absolute',
         top: "auto",
         right: -10,
         bottom: 10,
-        position: 'absolute',
         flex: 1,
         resizeMode: 'contain',
         width: '50%',
         height: '50%',
     },
     list: {
-        marginLeft: 10,
-        marginRight: 10,
+        marginHorizontal: 10,
     },
     listitem: {
         borderRadius: 10,
         padding: 20,
         marginRight: 10,
         marginBottom: 10,
-        display: 'flex',
         flexDirection: 'column',
-        rowGap: 6,
+        gap: 6,
         maxWidth: 180,
         maxHeight: 200,
+    },
+    pokemonImage: {
+        width: 120,
+        height: 120,
+        resizeMode: 'contain',
     },
     itemText: {
         fontSize: 20,
         fontWeight: '600',
         color: '#fff',
-        textTransform: 'capitalize',
-    },
-    itemCategorie: {
-        color: '#3D4146',
+        textAlign: 'center',
         textTransform: 'capitalize',
     },
     grassBackground: {
-        backgroundColor: '#C7EF99',
+        backgroundColor: '#acdc74',
     },
     poisonBackground: {
-        backgroundColor: '#D08DD9',
+        backgroundColor: '#AA5599',
     },
     fireBackground: {
-        backgroundColor: '#FAD0C3',
+        backgroundColor: '#e39086',
     },
     flyingBackground: {
-        backgroundColor: '#B4E1FF',
+        backgroundColor: '#92c7ea',
     },
     waterBackground: {
-        backgroundColor: '#A3CBFF',
+        backgroundColor: '#8db8ef',
     },
     electricBackground: {
-        backgroundColor: '#FFEE93',
+        backgroundColor: '#f1cc51',
+    },
+    psychicBackground: {
+        backgroundColor: '#FF5599',
+    },
+    ghostBackground: {
+        backgroundColor: '#7D7DC5',
+    },
+    fairyBackground: {
+        backgroundColor: '#EE99EE',
+    },
+    bugBackground: {
+        backgroundColor: '#AABA23',
+    },
+    darkBackground: {
+        backgroundColor: '#705848',
+    },
+    steelBackground: {
+        backgroundColor: '#AAAABB',
+    },
+    groundBackground: {
+        backgroundColor: '#E2C570',
+    },
+    fightingBackground: {
+        backgroundColor: '#BA5544',
+    },
+    rockBackground: {
+        backgroundColor: '#BAA23C',
+    },
+    iceBackground: {
+        backgroundColor: '#9AD6DF',
+    },
+    dragonBackground: {
+        backgroundColor: '#7038F8',
+    },
+    normalBackground: {
+        backgroundColor: '#AAAA99',
     },
     defaultBackground: {
         backgroundColor: '#1F1F1F',
     },
-    grassType: {
-        color: '#3CA225',
+    typeContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
-    poisonType: {
-        color: '#913FCB',
+    itemType: {
+        fontSize: 14,
+        fontWeight: '400',
+        color: '#fff',
+        textAlign: 'center',
+        textTransform: 'capitalize',
+        marginTop: 4,
     },
-    fireType: {
-        color: '#E72224',
-    },
-    flyingType: {
-        color: '#81BAF0',
-    },
-    waterType: {
-        color: '#2581EF',
-    },
-    electricType: {
-        color: '#F9C200',
-    },
-    defaultType: {
-        color: '#9EA19F',
+    listItemContainer: {
+        marginBottom: 10,
     },
 });

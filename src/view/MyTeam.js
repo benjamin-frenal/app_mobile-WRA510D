@@ -5,7 +5,7 @@ import {globalStyles} from '../../assets/styles/styles.js';
 const MyTeam = () => {
     return (
         <View style={globalStyles.container}>
-            <Text style={globalStyles.headerText}>MyTeam</Text>
+            <Text style={globalStyles.headerText}>Mon équipe</Text>
         </View>
     );
 };
