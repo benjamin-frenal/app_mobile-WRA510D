@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text, Image, Button } from "react-native";
+import { View, StyleSheet, FlatList, Text, Image} from "react-native";
 import axios from "axios";
-import {globalStyles} from "../../assets/styles/styles";
+import { globalStyles } from "../../assets/styles/styles";
+import PokemonSearch from "../components/SearchComponent";
 
 export default function Home() {
     const [listPokemon, setListPokemon] = useState([]);
@@ -30,9 +31,29 @@ export default function Home() {
         }
     };
 
+    const determineBackgroundColor = (types) => {
+        switch (types[0].type.name) {
+            case 'grass':
+                return styles.grassBackground;
+            case 'poison':
+                return styles.poisonBackground;
+            case 'fire':
+                return styles.fireBackground;
+            case 'flying':
+                return styles.flyingBackground;
+            case 'water':
+                return styles.waterBackground;
+            case 'electric':
+                return styles.electricBackground;
+            default:
+                return styles.defaultBackground;
+        }
+    };
+
     return (
         <View style={globalStyles.container}>
             <Text style={globalStyles.headerText}>Explorez le monde des Pokémon !</Text>
+            <PokemonSearch />
             <View style={styles.rectangleContainer}>
                 <View style={styles.rectangle}>
                     <Text style={styles.rectangleText}>Ma Team</Text>
@@ -52,50 +73,48 @@ export default function Home() {
             <FlatList
                 style={styles.list}
                 data={listPokemon}
+                horizontal={true}
                 keyExtractor={(item) => item.name}
                 renderItem={({ item }) => (
-                    <View style={styles.listitem}>
+                    <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
                         <Text style={styles.itemText}>{item.name}</Text>
                         <Text style={styles.itemCategorie}>Poids: {item.weight}</Text>
+                        <Text style={styles.itemCategorie}>Taille: {item.height}</Text>
                         <Text style={styles.itemTypes}>
-                            Types: {item.types.map((type, index) => {
-                            let typeStyle;
-                            switch (type.type.name) {
-                                case 'grass':
-                                    typeStyle = styles.grassType;
-                                    break;
-                                case 'poison':
-                                    typeStyle = styles.poisonType;
-                                    break;
-                                case 'fire':
-                                    typeStyle = styles.fireType;
-                                    break;
-                                case 'flying':
-                                    typeStyle = styles.flyingType;
-                                    break;
-                                case 'water':
-                                    typeStyle = styles.waterType;
-                                    break;
-                                case 'electric':
-                                    typeStyle = styles.electricType;
-                                    break;
-                                // Ajouter d'autres cas selon vos besoins
-                                default:
-                                    typeStyle = styles.defaultType;
-                            }
-
-                            // Ajouter une virgule après chaque type sauf pour le dernier
-                            const isLastType = index === item.types.length - 1;
-                            const comma = isLastType ? '' : ', ';
-
-                            return (
-                                <React.Fragment key={type.type.name}>
-                                    <Text style={typeStyle}>{type.type.name}</Text>
-                                    {comma}
-                                </React.Fragment>
-                            );
-                        })}
-                        </Text>
+                            Types: </Text><Text>{item.types.map((type, index) => {
+                        let typeStyle;
+                        switch (type.type.name) {
+                            case 'grass':
+                                typeStyle = styles.grassType;
+                                break;
+                            case 'poison':
+                                typeStyle = styles.poisonType;
+                                break;
+                            case 'fire':
+                                typeStyle = styles.fireType;
+                                break;
+                            case 'flying':
+                                typeStyle = styles.flyingType;
+                                break;
+                            case 'water':
+                                typeStyle = styles.waterType;
+                                break;
+                            case 'electric':
+                                typeStyle = styles.electricType;
+                                break;
+                            default:
+                                typeStyle = styles.defaultType;
+                        }
+                        const isLastType = index === item.types.length - 1;
+                        const comma = isLastType ? '' : ', ';
+                        return (
+                            <React.Fragment key={type.type.name}>
+                                <Text style={typeStyle}>{type.type.name}</Text>
+                                {comma}
+                            </React.Fragment>
+                        );
+                    })}
+                    </Text>
                     </View>
                 )}
                 numColumns={1}
@@ -108,7 +127,7 @@ export default function Home() {
             />
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     rectangleContainer: {
@@ -146,16 +165,19 @@ const styles = StyleSheet.create({
         height: '50%',
     },
     list: {
-        paddingHorizontal: 10,
+        marginLeft: 10,
+        marginRight: 10,
     },
     listitem: {
-        backgroundColor: '#121212',
         borderRadius: 10,
         padding: 20,
-        marginBottom: 20,
+        marginRight: 10,
+        marginBottom: 10,
         display: 'flex',
         flexDirection: 'column',
         rowGap: 6,
+        maxWidth: 180,
+        maxHeight: 200,
     },
     itemText: {
         fontSize: 20,
@@ -167,8 +189,26 @@ const styles = StyleSheet.create({
         color: '#3D4146',
         textTransform: 'capitalize',
     },
-    itemHash: {
-        color: '#3b72b2',
+    grassBackground: {
+        backgroundColor: '#C7EF99',
+    },
+    poisonBackground: {
+        backgroundColor: '#D08DD9',
+    },
+    fireBackground: {
+        backgroundColor: '#FAD0C3',
+    },
+    flyingBackground: {
+        backgroundColor: '#B4E1FF',
+    },
+    waterBackground: {
+        backgroundColor: '#A3CBFF',
+    },
+    electricBackground: {
+        backgroundColor: '#FFEE93',
+    },
+    defaultBackground: {
+        backgroundColor: '#1F1F1F',
     },
     grassType: {
         color: '#3CA225',
