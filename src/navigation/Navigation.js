@@ -14,15 +14,13 @@ const Tab = createBottomTabNavigator();
 const Navigation = () => (
     <NavigationContainer>
         <Tab.Navigator
-            tabBarOptions={{
-                activeTintColor: '#F7786A',
-                inactiveTintColor: 'gray'
-            }}
             screenOptions={({ route }) => ({
                 tabBarStyle: {
                     backgroundColor: '#161618',
                     borderTopWidth: 0,
                 },
+                tabBarActiveTintColor: '#F7786A',
+                tabBarInactiveTintColor: 'gray',
                 headerShown: false,
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
