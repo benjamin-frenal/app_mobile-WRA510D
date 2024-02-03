@@ -76,27 +76,30 @@ export default function Home() {
                     />
                 </View>
             </View>
-            <FlatList
-                style={styles.list}
-                data={listPokemon}
-                horizontal={true}
-                keyExtractor={(item) => item.name}
-                renderItem={({ item }) => (
-                    <View style={styles.listItemContainer}>
-                        <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
-                            <Text style={styles.itemText}>{item.name}</Text>
-                            <Image source={{ uri: item.sprites.front_default }} style={styles.pokemonImage} />
+            <View>
+                <Text style={styles.categorieText}>État sauvage</Text>
+                <FlatList
+                    style={styles.list}
+                    data={listPokemon}
+                    horizontal={true}
+                    keyExtractor={(item) => item.name}
+                    renderItem={({ item }) => (
+                        <View style={styles.listItemContainer}>
+                            <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
+                                <Text style={styles.itemText}>{item.name}</Text>
+                                <Image source={{ uri: item.sprites.other.home.front_default }} style={styles.pokemonImage} />
+                            </View>
                         </View>
-                    </View>
-                )}
-                numColumns={1}
-                onEndReached={() => {
-                    if (nextPage) {
-                        loadPokemons(nextPage);
-                    }
-                }}
-                onEndReachedThreshold={0.1}
-            />
+                    )}
+                    numColumns={1}
+                    onEndReached={() => {
+                        if (nextPage) {
+                            loadPokemons(nextPage);
+                        }
+                    }}
+                    onEndReachedThreshold={0.1}
+                />
+            </View>
         </View>
     );
 }
@@ -136,6 +139,14 @@ const styles = StyleSheet.create({
         width: '50%',
         height: '50%',
     },
+    categorieText: {
+        marginTop: 20,
+        marginBottom: 10,
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: '600',
+        marginLeft: 10,
+    },
     list: {
         marginHorizontal: 10,
     },
@@ -147,7 +158,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         gap: 6,
         maxWidth: 180,
-        maxHeight: 200,
     },
     pokemonImage: {
         width: 120,
@@ -218,9 +228,9 @@ const styles = StyleSheet.create({
     defaultBackground: {
         backgroundColor: '#1F1F1F',
     },
-    typeContainer: {
+    pcContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
     },
     itemType: {
         fontSize: 14,
