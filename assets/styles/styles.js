@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const globalStyles = StyleSheet.create({
     container: {
         backgroundColor: '#000000',
-        height: '100%',
+        minHeight: '100%',
         paddingTop: 60,
     },
     headerText: {
@@ -12,5 +12,12 @@ export const globalStyles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         paddingHorizontal: 10,
-    }
+    },
+    pokebackground: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+    },
 });

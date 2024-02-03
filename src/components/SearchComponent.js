@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from '@expo/vector-icons';
 import axios from "axios";
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 
 export default function PokemonSearch() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -38,9 +38,12 @@ export default function PokemonSearch() {
             </View>
             {searchResult && (
                 <View style={styles.searchResultContainer}>
-                    <Text style={styles.itemText}>{searchResult.name}</Text>
-                    <Text style={styles.itemCategorie}>Poids: {searchResult.weight}</Text>
-                    <Text style={styles.itemCategorie}>Taille: {searchResult.height}</Text>
+                    <View style={styles.searchResultLeft}>
+                        <Text style={styles.itemText}>{searchResult.name}</Text>
+                        <Text style={styles.itemCategorie}>Poids: {searchResult.weight}</Text>
+                        <Text style={styles.itemCategorie}>Taille: {searchResult.height}</Text>
+                    </View>
+                    <Image source={{ uri: searchResult.sprites.other.home.front_default }} style={styles.pokemonImage} />
                 </View>
             )}
         </View>
@@ -68,6 +71,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#eee',
         borderRadius: 5,
         marginBottom: 10,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     itemText: {
         fontWeight: 'bold',
@@ -80,5 +87,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 12,
         right: 20,
-    }
+    },
+    pokemonImage: {
+        width: 100,
+        height: 100,
+        marginBottom: 10,
+    },
 });
