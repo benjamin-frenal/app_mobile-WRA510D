@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     },
     searchResultContainer: {
         marginHorizontal: 10,
-        padding: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 100,
         backgroundColor: '#eee',
         borderRadius: 5,
         marginBottom: 10,
