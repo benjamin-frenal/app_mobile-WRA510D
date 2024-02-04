@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text, Image } from "react-native";
+import { ScrollView, View, StyleSheet, FlatList, Text, Image } from "react-native";
 import axios from "axios";
 import { globalStyles } from "../../assets/styles/styles";
 import PokemonSearch from "../components/SearchComponent";
@@ -57,54 +57,75 @@ export default function Home() {
     };
 
     return (
-        <View style={globalStyles.container}>
-            <Text style={globalStyles.headerText}>Explorez le monde des Pokémon !</Text>
-            <PokemonSearch />
-            <View style={styles.rectangleContainer}>
-                <View style={styles.rectangle}>
-                    <Text style={styles.rectangleText}>Ma Team</Text>
-                    <Image
-                        source={require('../../assets/images/users.png')}
-                        style={styles.backgroundImage}
-                    />
+        <ScrollView style={styles.scrollcontainer}>
+            <View style={globalStyles.container}>
+                <Text style={globalStyles.headerText}>Explorez le monde des Pokémon !</Text>
+                <PokemonSearch />
+                <View style={styles.rectangleContainer}>
+                    <View style={styles.rectangle}>
+                        <Text style={styles.rectangleText}>Ma Team</Text>
+                        <Image
+                            source={require('../../assets/images/users.png')}
+                            style={styles.backgroundImage}
+                        />
+                    </View>
+                    <View style={[styles.rectangle, styles.tworectangle]}>
+                        <Text style={styles.rectangleText}>Aléatoire</Text>
+                        <Image
+                            source={require('../../assets/images/pokefond.png')}
+                            style={styles.backgroundImage}
+                        />
+                    </View>
                 </View>
-                <View style={[styles.rectangle, styles.tworectangle]}>
-                    <Text style={styles.rectangleText}>Aléatoire</Text>
-                    <Image
-                        source={require('../../assets/images/pokefond.png')}
-                        style={styles.backgroundImage}
-                    />
+                <View style={styles.rectangleContainer}>
+                    <View style={[styles.rectangle, styles.threerectangle]}>
+                        <Text style={styles.rectangleText}>Camera</Text>
+                        <Image
+                            source={require('../../assets/images/users.png')}
+                            style={styles.backgroundImage}
+                        />
+                    </View>
+                    <View style={[styles.rectangle, styles.fourrectangle]}>
+                        <Text style={styles.rectangleText}>Shiny</Text>
+                        <Image
+                            source={require('../../assets/images/pokefond.png')}
+                            style={styles.backgroundImage}
+                        />
+                    </View>
                 </View>
-            </View>
-            <View>
-                <Text style={styles.categorieText}>État sauvage</Text>
-                <FlatList
-                    style={styles.list}
-                    data={listPokemon}
-                    horizontal={true}
-                    keyExtractor={(item) => item.name}
-                    renderItem={({ item }) => (
-                        <View style={styles.listItemContainer}>
-                            <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
-                                <Text style={styles.itemText}>{item.name}</Text>
-                                <Image source={{ uri: item.sprites.other.home.front_default }} style={styles.pokemonImage} />
+                <View>
+                    <Text style={styles.categorieText}>État sauvage</Text>
+                    <FlatList
+                        style={styles.list}
+                        data={listPokemon}
+                        horizontal={true}
+                        keyExtractor={(item) => item.name}
+                        renderItem={({ item }) => (
+                            <View style={styles.listItemContainer}>
+                                <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
+                                    <Text style={styles.itemText}>{item.name}</Text>
+                                    <Image source={{ uri: item.sprites.other.home.front_default }} style={styles.pokemonImage} />
+                                </View>
                             </View>
-                        </View>
-                    )}
-                    numColumns={1}
-                    onEndReached={() => {
-                        if (nextPage) {
-                            loadPokemons(nextPage);
-                        }
-                    }}
-                    onEndReachedThreshold={0.1}
-                />
+                        )}
+                        numColumns={1}
+                        onEndReached={() => {
+                            if (nextPage) {
+                                loadPokemons(nextPage);
+                            }
+                        }}
+                        onEndReachedThreshold={0.1}
+                    />
+                </View>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+    scrollcontainer: {
+        backgroundColor: '#000000',
+    },
     rectangleContainer: {
         flexDirection: 'row',
         gap: 10,
@@ -128,6 +149,12 @@ const styles = StyleSheet.create({
     },
     tworectangle: {
         backgroundColor: '#5CBE62',
+    },
+    threerectangle: {
+        backgroundColor: '#8db8ef',
+    },
+    fourrectangle: {
+        backgroundColor: '#f1cc51',
     },
     backgroundImage: {
         position: 'absolute',
