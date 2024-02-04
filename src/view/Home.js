@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, StyleSheet, FlatList, Text, Image } from "react-native";
+import { ScrollView, View, TouchableOpacity, StyleSheet, FlatList, Text, Image } from "react-native";
 import axios from "axios";
+import { useNavigation } from '@react-navigation/native';
 import { globalStyles } from "../../assets/styles/styles";
 import PokemonSearch from "../components/SearchComponent";
 
 export default function Home() {
+    const navigation = useNavigation();
     const [listPokemon, setListPokemon] = useState([]);
     const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon");
 
@@ -78,13 +80,16 @@ export default function Home() {
                     </View>
                 </View>
                 <View style={styles.rectangleContainer}>
-                    <View style={[styles.rectangle, styles.threerectangle]}>
+                    <TouchableOpacity
+                        style={[styles.rectangle, styles.threerectangle]}
+                        onPress={() => navigation.navigate('CameraPage')}
+                    >
                         <Text style={styles.rectangleText}>Camera</Text>
                         <Image
                             source={require('../../assets/images/camera.png')}
                             style={styles.backgroundImage}
                         />
-                    </View>
+                    </TouchableOpacity>
                     <View style={[styles.rectangle, styles.fourrectangle]}>
                         <Text style={styles.rectangleText}>Shiny</Text>
                         <Image
