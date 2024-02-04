@@ -81,14 +81,14 @@ export default function Home() {
                     <View style={[styles.rectangle, styles.threerectangle]}>
                         <Text style={styles.rectangleText}>Camera</Text>
                         <Image
-                            source={require('../../assets/images/users.png')}
+                            source={require('../../assets/images/camera.png')}
                             style={styles.backgroundImage}
                         />
                     </View>
                     <View style={[styles.rectangle, styles.fourrectangle]}>
                         <Text style={styles.rectangleText}>Shiny</Text>
                         <Image
-                            source={require('../../assets/images/pokefond.png')}
+                            source={require('../../assets/images/star.png')}
                             style={styles.backgroundImage}
                         />
                     </View>
