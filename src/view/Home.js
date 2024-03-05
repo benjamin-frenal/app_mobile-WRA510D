@@ -14,6 +14,14 @@ export default function Home() {
         navigation.navigate('Ma Team');
     };
 
+    const Random = () => {
+        navigation.navigate('Aléatoire');
+    }
+
+    const navigateToPokemonDetail = (pokemon) => {
+        navigation.navigate('PokemonDetail', { pokemon });
+    };
+
     useEffect(() => {
         loadPokemons(nextPage);
     }, []);
@@ -77,13 +85,13 @@ export default function Home() {
                             style={styles.backgroundImage}
                         />
                     </TouchableOpacity>
-                    <View style={[styles.rectangle, styles.tworectangle]}>
+                    <TouchableOpacity style={[styles.rectangle, styles.tworectangle]} onPress={Random}>
                         <Text style={styles.rectangleText}>Aléatoire</Text>
                         <Image
                             source={require('../../assets/images/pokefond.png')}
                             style={styles.backgroundImage}
                         />
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.rectangleContainer}>
                     <TouchableOpacity
@@ -115,12 +123,14 @@ export default function Home() {
                         horizontal={true}
                         keyExtractor={(item) => item.name}
                         renderItem={({ item }) => (
-                            <View style={styles.listItemContainer}>
-                                <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
-                                    <Text style={styles.itemText}>{item.name}</Text>
-                                    <Image source={{ uri: item.sprites.other.home.front_default }} style={styles.pokemonImage} />
+                            <TouchableOpacity onPress={() => navigateToPokemonDetail(item)}>
+                                <View style={styles.listItemContainer}>
+                                    <View style={[styles.listitem, determineBackgroundColor(item.types)]}>
+                                        <Text style={styles.itemText}>{item.name}</Text>
+                                        <Image source={{ uri: item.sprites.other.home.front_default }} style={styles.pokemonImage} />
+                                    </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )}
                         numColumns={1}
                         onEndReached={() => {
