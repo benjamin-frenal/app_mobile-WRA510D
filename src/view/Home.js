@@ -22,6 +22,10 @@ export default function Home() {
         navigation.navigate('PokemonDetail', { pokemon });
     };
 
+    const handleSelectPokemon = (selectedPokemon) => {
+        console.log("Le Pokémon sélectionné est :", selectedPokemon);
+    };
+
     useEffect(() => {
         loadPokemons(nextPage);
     }, []);
@@ -74,7 +78,7 @@ export default function Home() {
         <ScrollView style={styles.scrollcontainer}>
             <View style={globalStyles.container}>
                 <Text style={globalStyles.headerText}>Explorez le monde des Pokémon !</Text>
-                <PokemonSearch />
+                <PokemonSearch onSelectPokemon={handleSelectPokemon} />
                 <View style={styles.rectangleContainer}>
                     <TouchableOpacity
                         style={styles.rectangle}

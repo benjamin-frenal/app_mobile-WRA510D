@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {AntDesign} from "@expo/vector-icons";
 
-const PokemonDetail = ({ route }) => {
+const PokemonDetailShiny = ({ route }) => {
     const navigation = useNavigation();
     const { pokemon } = route.params;
 
@@ -17,7 +17,7 @@ const PokemonDetail = ({ route }) => {
                     <AntDesign style={styles.btnRetour} name="heart" size={24} color="white" />
                 </TouchableOpacity>
             </View>
-            <Image source={{ uri: pokemon.sprites.other.home.front_default }} style={styles.image} />
+            <Image source={{ uri: pokemon.sprites.other.home.front_shiny }} style={styles.image} />
             <Text style={styles.name}>{pokemon.name}</Text>
             <Text style={styles.type}>{pokemon.types[0].type.name} Pokemon</Text>
             <View style={styles.card}>
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PokemonDetail;
+export default PokemonDetailShiny;

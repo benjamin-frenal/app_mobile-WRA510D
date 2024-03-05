@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, StyleSheet, FlatList, Text, Image } from "react-native";
+import { ScrollView, View, StyleSheet, FlatList, Text, Image, TouchableOpacity } from "react-native";
 import axios from "axios";
 import {globalStyles} from '../../assets/styles/styles.js';
+import {useNavigation} from "@react-navigation/native";
 
 const ListShiny = () => {
+    const navigation = useNavigation();
     const [listPokemon, setListPokemon] = useState([]);
     const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon");
+
+    const navigateToPokemonDetail = (pokemon) => {
+        navigation.navigate('PokemonDetailShiny', { pokemon });
+    };
 
     useEffect(() => {
         loadPokemons(nextPage);
@@ -50,12 +56,14 @@ const ListShiny = () => {
                         horizontal={true}
                         keyExtractor={(item) => item.name}
                         renderItem={({ item }) => (
-                            <View style={styles.listItemContainer}>
-                                <View style={styles.listitem}>
-                                    <Text style={styles.itemText}>{item.name}</Text>
-                                    <Image source={{ uri: item.sprites.other.home.front_shiny }} style={styles.pokemonImage} />
+                            <TouchableOpacity onPress={() => navigateToPokemonDetail(item)}>
+                                <View style={styles.listItemContainer}>
+                                    <View style={styles.listitem}>
+                                        <Text style={styles.itemText}>{item.name}</Text>
+                                        <Image source={{ uri: item.sprites.other.home.front_shiny }} style={styles.pokemonImage} />
+                                    </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )}
                         numColumns={1}
                         onEndReached={() => {
