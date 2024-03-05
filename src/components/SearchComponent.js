@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FontAwesome } from '@expo/vector-icons';
 import axios from "axios";
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
-export default function PokemonSearch() {
+export default function PokemonSearch({ onSelectPokemon }) {
+    const navigation = useNavigation();
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState(null);
 
@@ -16,9 +18,12 @@ export default function PokemonSearch() {
         }
     };
 
-    useEffect(() => {
-        console.log(searchResult);
-    }, [searchResult]);
+    const navigateToPokemonDetail = () => {
+        if (searchResult) {
+            onSelectPokemon(searchResult);
+            navigation.navigate('PokemonDetail', { pokemon: searchResult });
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -37,14 +42,16 @@ export default function PokemonSearch() {
                 </TouchableOpacity>
             </View>
             {searchResult && (
-                <View style={styles.searchResultContainer}>
-                    <View style={styles.searchResultLeft}>
-                        <Text style={styles.itemText}>{searchResult.name}</Text>
-                        <Text style={styles.itemCategorie}>Poids: {searchResult.weight}</Text>
-                        <Text style={styles.itemCategorie}>Taille: {searchResult.height}</Text>
+                <TouchableOpacity onPress={navigateToPokemonDetail}>
+                    <View style={styles.searchResultContainer}>
+                        <View style={styles.searchResultLeft}>
+                            <Text style={styles.itemText}>{searchResult.name}</Text>
+                            <Text style={styles.itemCategorie}>Poids: {searchResult.weight}</Text>
+                            <Text style={styles.itemCategorie}>Taille: {searchResult.height}</Text>
+                        </View>
+                        <Image source={{ uri: searchResult.sprites.other.home.front_default }} style={styles.pokemonImage} />
                     </View>
-                    <Image source={{ uri: searchResult.sprites.other.home.front_default }} style={styles.pokemonImage} />
-                </View>
+                </TouchableOpacity>
             )}
         </View>
     );
