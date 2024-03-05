@@ -11,6 +11,7 @@ import Random from '../view/Random';
 import Settings from '../view/Settings';
 import CameraPage from '../view/CameraPage';
 import ListShiny from '../view/ListShiny';
+import PokemonDetail from '../view/PokemonDetail';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,6 +63,7 @@ const App = () => (
             <Stack.Screen name="Main" component={MainNavigation} />
             <Stack.Screen name="CameraPage" component={CameraPage} />
             <Stack.Screen name="ListShiny" component={ListShiny} />
+            <Stack.Screen name="PokemonDetail" component={PokemonDetail} />
         </Stack.Navigator>
     </NavigationContainer>
 );
