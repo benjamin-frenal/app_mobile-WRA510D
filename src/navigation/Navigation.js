@@ -10,6 +10,7 @@ import MyTeam from '../view/MyTeam';
 import Random from '../view/Random';
 import Settings from '../view/Settings';
 import CameraPage from '../view/CameraPage';
+import ListShiny from '../view/ListShiny';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -60,6 +61,7 @@ const App = () => (
         >
             <Stack.Screen name="Main" component={MainNavigation} />
             <Stack.Screen name="CameraPage" component={CameraPage} />
+            <Stack.Screen name="ListShiny" component={ListShiny} />
         </Stack.Navigator>
     </NavigationContainer>
 );
