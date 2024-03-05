@@ -10,6 +10,10 @@ export default function Home() {
     const [listPokemon, setListPokemon] = useState([]);
     const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon");
 
+    const MaTeam = () => {
+        navigation.navigate('Ma Team');
+    };
+
     useEffect(() => {
         loadPokemons(nextPage);
     }, []);
@@ -64,13 +68,15 @@ export default function Home() {
                 <Text style={globalStyles.headerText}>Explorez le monde des Pokémon !</Text>
                 <PokemonSearch />
                 <View style={styles.rectangleContainer}>
-                    <View style={styles.rectangle}>
+                    <TouchableOpacity
+                        style={styles.rectangle}
+                        onPress={MaTeam}>
                         <Text style={styles.rectangleText}>Ma Team</Text>
                         <Image
                             source={require('../../assets/images/users.png')}
                             style={styles.backgroundImage}
                         />
-                    </View>
+                    </TouchableOpacity>
                     <View style={[styles.rectangle, styles.tworectangle]}>
                         <Text style={styles.rectangleText}>Aléatoire</Text>
                         <Image
@@ -90,13 +96,16 @@ export default function Home() {
                             style={styles.backgroundImage}
                         />
                     </TouchableOpacity>
-                    <View style={[styles.rectangle, styles.fourrectangle]}>
+                    <TouchableOpacity
+                        style={[styles.rectangle, styles.fourrectangle]}
+                        onPress={() => navigation.navigate('ListShiny')}
+                    >
                         <Text style={styles.rectangleText}>Shiny</Text>
                         <Image
                             source={require('../../assets/images/star.png')}
                             style={styles.backgroundImage}
                         />
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View>
                     <Text style={styles.categorieText}>État sauvage</Text>
