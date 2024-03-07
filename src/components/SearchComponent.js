@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesome } from '@expo/vector-icons';
 import axios from "axios";
-import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {useNavigation} from "@react-navigation/native";
+import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function PokemonSearch({ onSelectPokemon }) {
     const navigation = useNavigation();
@@ -35,6 +35,11 @@ export default function PokemonSearch({ onSelectPokemon }) {
                     value={searchTerm}
                     onChangeText={setSearchTerm}
                 />
+                {searchTerm !== '' && (
+                    <TouchableOpacity onPress={() => setSearchTerm('')} style={styles.closeIcon}>
+                        <FontAwesome name="times" size={18} color="gray" />
+                    </TouchableOpacity>
+                )}
                 <TouchableOpacity onPress={() => {
                     searchTerm !== '' ? searchPokemon() : Alert.alert('Hé, Dresseur !', 'Veuillez entrer un nom de Pokémon.');
                 }} style={styles.searchIcon}>
@@ -50,6 +55,10 @@ export default function PokemonSearch({ onSelectPokemon }) {
                             <Text style={styles.itemCategorie}>Taille: {searchResult.height}</Text>
                         </View>
                         <Image source={{ uri: searchResult.sprites.other.home.front_default }} style={styles.pokemonImage} />
+
+                        <TouchableOpacity onPress={() => setSearchResult(null)} style={styles.closeResultIcon}>
+                            <FontAwesome name="times" size={18} color="gray" />
+                        </TouchableOpacity>
                     </View>
                 </TouchableOpacity>
             )}
@@ -58,7 +67,11 @@ export default function PokemonSearch({ onSelectPokemon }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        marginBottom: 10,
+    },
     searchContainer: {
+        position: 'relative',
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
@@ -87,6 +100,8 @@ const styles = StyleSheet.create({
     itemText: {
         fontWeight: 'bold',
         fontSize: 16,
+        textTransform: "capitalize",
+        marginBottom: 15,
     },
     itemCategorie: {
         fontSize: 14,
@@ -96,9 +111,22 @@ const styles = StyleSheet.create({
         top: 12,
         right: 20,
     },
+    closeIcon: {
+        position: 'absolute',
+        top: 12,
+        right: 50,
+    },
+    closeResultIcon: {
+        position: 'absolute',
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        top: 0,
+        right: 0,
+    },
     pokemonImage: {
+        flex: "none",
         width: 100,
         height: 100,
-        marginBottom: 10,
+        marginTop: 10,
     },
 });
