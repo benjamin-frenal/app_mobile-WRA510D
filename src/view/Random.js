@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { globalStyles } from "../../assets/styles/styles";
+import { useNavigation } from '@react-navigation/native';
 
 const Random = () => {
     const [totalPokemon] = useState(1025);
     const [randomPokemonId, setRandomPokemonId] = useState(null);
     const [pokemonData, setPokemonData] = useState(null);
     const [backgroundColor, setBackgroundColor] = useState('#1F1F1F'); // Couleur de fond par défaut
+    const navigation = useNavigation();
 
     const getRandomPokemonId = () => {
         return Math.floor(Math.random() * totalPokemon) + 1;
@@ -25,7 +27,6 @@ const Random = () => {
                 const data = await response.json();
                 setPokemonData(data);
 
-                // Détermine la couleur de fond en fonction du premier type du Pokémon
                 setBackgroundColor(determineBackgroundColor(data.types));
             } catch (error) {
                 console.error('Erreur lors du chargement des détails du Pokémon :', error);
@@ -62,8 +63,14 @@ const Random = () => {
         return backgroundColors[types[0]?.type?.name] || backgroundColors['default'];
     };
 
+    const navigateToPokemonDetail = () => {
+        if (pokemonData) {
+            navigation.navigate('PokemonDetail', { pokemon: pokemonData });
+        }
+    };
+
     return (
-        <View style={[globalStyles.container, styles.container, { backgroundColor: backgroundColor }]}>
+        <TouchableOpacity style={[globalStyles.container, styles.container, { backgroundColor: backgroundColor }]} onPress={navigateToPokemonDetail}>
             <Text style={globalStyles.headerText}>Découvrez de nouveaux Pokémons !</Text>
             {pokemonData && (
                 <View style={styles.pokemonDetails}>
@@ -76,7 +83,7 @@ const Random = () => {
                     <Text style={styles.buttonText}>Générer un Pokémon</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
