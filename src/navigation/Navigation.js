@@ -24,7 +24,7 @@ const MainNavigation = () => (
                 backgroundColor: '#161618',
                 borderTopWidth: 0,
             },
-            tabBarActiveTintColor: '#f6e09a',
+            tabBarActiveTintColor: '#e11646',
             tabBarInactiveTintColor: 'gray',
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
