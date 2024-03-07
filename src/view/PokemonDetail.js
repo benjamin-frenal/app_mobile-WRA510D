@@ -1,11 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import {useNavigation} from "@react-navigation/native";
-import {AntDesign} from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Vibration } from 'react-native';
 
 const PokemonDetail = ({ route }) => {
     const navigation = useNavigation();
     const { pokemon } = route.params;
+    const [isInTeam, setIsInTeam] = useState(false);
+
+    useEffect(() => {
+        checkIfInTeam();
+    }, []);
+
+    const checkIfInTeam = async () => {
+        try {
+            const currentTeam = await AsyncStorage.getItem('team');
+            if (currentTeam !== null) {
+                const team = JSON.parse(currentTeam);
+                setIsInTeam(team.includes(pokemon.id));
+            }
+        } catch (error) {
+            console.error('Erreur lors de la vérification de l\'appartenance du Pokémon à l\'équipe', error);
+        }
+    };
+
+    const addToTeam = async () => {
+        try {
+            let updatedTeam = [];
+            const currentTeam = await AsyncStorage.getItem('team');
+            if (currentTeam !== null) {
+                updatedTeam = JSON.parse(currentTeam);
+            }
+
+            if (isInTeam) {
+                // Remove the Pokémon from the team
+                const index = updatedTeam.indexOf(pokemon.id);
+                if (index > -1) {
+                    updatedTeam.splice(index, 1);
+                }
+            } else {
+                if (updatedTeam.length >= 6) {
+                    alert("Vous avez déjà 6 Pokémon dans votre équipe. Veuillez en supprimer un avant d'en ajouter un nouveau.");
+                    return;
+                }
+
+                updatedTeam.push(pokemon.id);
+            }
+
+            await AsyncStorage.setItem('team', JSON.stringify(updatedTeam));
+            setIsInTeam(!isInTeam);
+
+            // Vibrate the phone
+            Vibration.vibrate(200);
+        } catch (error) {
+            console.error('Erreur lors de l\'ajout du Pokémon à l\'équipe', error);
+        }
+    };
+
 
     return (
         <View style={styles.container}>
@@ -13,8 +66,13 @@ const PokemonDetail = ({ route }) => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <AntDesign style={styles.btnRetour} name="arrowleft" size={24} color="white" />
                 </TouchableOpacity>
-                <TouchableOpacity>
-                    <AntDesign style={styles.btnRetour} name="heart" size={24} color="white" />
+                <TouchableOpacity onPress={addToTeam}>
+                    <AntDesign
+                        style={styles.btnRetour}
+                        name={isInTeam ? "heart" : "hearto"}
+                        size={24}
+                        color={isInTeam ? "red" : "white"}
+                    />
                 </TouchableOpacity>
             </View>
             <Image source={{ uri: pokemon.sprites.other.home.front_default }} style={styles.image} />
