@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
         right: 0,
     },
     pokemonImage: {
-        flex: "none",
         width: 100,
         height: 100,
         marginTop: 10,
